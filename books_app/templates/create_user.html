@@ -2,26 +2,12 @@
 
 {% block content %}
 
-<h1>{{ user.username }}'s Profile</h1>
+<p>User creation form.</p>
 
-<p>
-    {{ user.username }}'s favorite books are:
-
-    <ul>
-        {% if user.favorite_books %}
-            {% for book in user.favorite_books %}
-                <li>{{ book.title }}</li>
-            {% endfor %}
-        {% else %}
-            <li>No favorite books yet!</li>
-        {% endif %}
-    </ul>
-</p>
-
-<form method="POST" action="{{ url_for('main.profile', username=user.username) }}">
+<form method="POST" action="{{ url_for('main.create_user') }}">
     {{ form.csrf_token }}
     <fieldset>
-        <legend>Edit profile</legend>
+        <legend>Create a new user</legend>
 
         {{ form.username.label }}
         {{ form.username }}
@@ -45,4 +31,4 @@
     </fieldset>
 </form>
 
-{% endblock %}
+{% endblock %} 
