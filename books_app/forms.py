@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, SelectField, SubmitField
-from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
+from wtforms_sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
 from wtforms.validators import DataRequired, Length, ValidationError
 from books_app.models import Audience, Book, Author, Genre
 
@@ -33,8 +33,17 @@ class AuthorForm(FlaskForm):
     # STRETCH CHALLENGE: Add more fields here as well as in `models.py` to
     # collect more information about the author, such as their birth date,
     # country, etc.
-    pass
-
+    name = StringField('Author Name', 
+    validators=[
+        DataRequired(), 
+        Length(min=3, max=80, message="Name must be between 3 and 80 characters")
+    ])
+    biography = StringField('Biography',
+        validators=[
+            DataRequired(),
+            Length(min=10, message="Biography must be at least 10 characters")
+        ])
+    submit = SubmitField('Submit')
 
 class GenreForm(FlaskForm):
     """Form to create a genre."""
@@ -42,4 +51,9 @@ class GenreForm(FlaskForm):
     # TODO: Fill out the fields in this class for:
     # - the genre's name (e.g. fiction, non-fiction, etc)
     # - a submit button
-    pass
+    name = StringField('Genre Name', 
+        validators=[
+            DataRequired(), 
+            Length(min=3, max=80, message="Genre name must be between 3 and 80 characters")
+        ])
+    submit = SubmitField('Submit')
